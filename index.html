@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Consulte seu CEP </title>
+		<link rel="stylesheet" href="stylesheet.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<h2 class="sub-title">Digite o CEP e os outros campos serão preenchidos automaticamente</h2>
+				<h1 class="title">Consulte seu CEP</h1>
+			</div>
+		</header>
+		<div class="container">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="cep">CEP</label>
+					<input type="textbox" id="address" maxlength="9" onkeypress="formatar('#####-###', this)" class="form-control" name="cep" placeholder="Digite o CEP">				
+				</div>
+				<div class="form-group">
+					<label for="rua">Rua</label>
+					<input type="text" readonly="true" class="form-control" name="rua" placeholder="Rua">
+				</div>
+				<div class="form-group">
+					<label for="bairro">Bairro</label>
+					<input type="text" readonly="true" class="form-control" name="bairro" placeholder="Bairro">
+				</div>
+				<div class="form-group">
+					<label for="cidade">Cidade</label>
+					<input type="text" readonly="true" class="form-control" name="cidade" placeholder="Cidade">
+				</div>
+				<div class="form-group">
+					<label for="uf">Estado (UF)</label>
+					<input type="text" readonly="true" class="form-control" name="uf" placeholder="Estado">
+				</div>
+
+			</form>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="javascript.js" type="text/javascript"></script>	
+
+		<script>
+		function formatar(mascara, documento){
+		  var i = documento.value.length;
+		  var saida = mascara.substring(0,1);
+		  var texto = mascara.substring(i)
+		  
+		  if (texto.substring(0,1) != saida){
+		            documento.value += texto.substring(0,1);
+		  }
+
+		}
+		</script>
+		<!-- MAPA -->
+
+	    <div id="button">
+	      <input id="submit" type="button" value="Ver no mapa">
+	    </div>
+	    <div id="map"></div>
+	    <script>
+			function initMap() {
+			  var map = new google.maps.Map(document.getElementById('map'), {
+			    zoom: 17,
+			    center: {lat: -33.724, lng: -16.031}
+			  });
+			  var geocoder = new google.maps.Geocoder();
+
+			  document.getElementById('submit').addEventListener('click', function() {
+			    geocodeAddress(geocoder, map);
+			  });
+			}
+
+			function geocodeAddress(geocoder, resultsMap) {
+			  var address = document.getElementById('address').value;
+			  geocoder.geocode({'address': address}, function(results, status) {
+			    if (status === google.maps.GeocoderStatus.OK) {
+			      resultsMap.setCenter(results[0].geometry.location);
+			      var marker = new google.maps.Marker({
+			        map: resultsMap,
+			        position: results[0].geometry.location
+			      });
+			    } else {
+			    	document.getElementById('address').style.borderColor = "#e00012";
+			      alert('Nao encontramos o endereço. Verifique seu CEP');
+			    }
+			  });
+			}
+
+	    </script>
+	    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWeEww9muWzqwnHy-xvZsEzLmFjwwadBc&callback=initMap"
+	        async defer></script>
+
+	</body>
+</html>
