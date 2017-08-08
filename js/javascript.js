@@ -23,10 +23,9 @@ function pesquisaCep(valor) {
 	if(cep != '') {
 		request = new XMLHttpRequest()
 		request.open('GET', api)
-		request.addEventListener("error", transferFailed, false);
-		function transferFailed(evt) {
+		request.addEventListener("error", function(){
 			errorCep()
-		}
+		}, false);
 
 		request.onload = function(){
 			let address = JSON.parse(request.responseText)
