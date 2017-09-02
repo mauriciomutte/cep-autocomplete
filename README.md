@@ -1,5 +1,12 @@
-# Consulte-seu-cep
+# Find-your-address
 
-Preencha seu CEP e os outros campos (rua, bairro, cidade e estado) são preenchidos automaticamente, além de ter a possibilidade de ver seu endereço diretamente no mapa (Google Maps).
+With only your zip code, you can find your address (street, neighborhood, city and state) and see its address on the map.
+Note: The zip code is only limited to the country Brazil
 
-[Veja a demonstração!](https://mauriciomutte.github.io/consulte-seu-cep/)
+[View the project](https://mauriciomutte.github.io/Find-your-address/)
+
+## Technology
+
+- [Google Maps API](https://developers.google.com/maps/)
+
+- [ViaCEP API](https://viacep.com.br/)
