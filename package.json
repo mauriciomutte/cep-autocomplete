@@ -1,0 +1,24 @@
+{
+  "name": "find-your-address",
+  "version": "1.0.0",
+  "description": "With only your zip code, you can find your address (street, neighborhood, city and state) and see its address on the map.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mauriciomutte/find-your-address.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mauriciomutte/find-your-address/issues"
+  },
+  "homepage": "https://github.com/mauriciomutte/find-your-address#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1"
+  }
+}
