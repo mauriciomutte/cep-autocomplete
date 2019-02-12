@@ -1,39 +1,45 @@
-function errorCep() {
-	let rua = document.getElementById('rua').value = ('')
-	let bairro = document.getElementById('bairro').value = ('')
-	let cidade = document.getElementById('cidade').value = ('')
-	let estado = document.getElementById('uf').value = ('')
+let cep = document.getElementById('cep');
+let rua = document.getElementById('rua');
+let bairro = document.getElementById('bairro');
+let cidade = document.getElementById('cidade');
+let estado = document.getElementById('uf');
 
-	document.getElementById('cep').style.borderColor = "#e00012";
+function errorCep() {
+	rua.value = ('');
+	bairro.value = ('');
+	cidade.value = ('');
+	estado.value = ('');
+
+	cep.style.borderColor = "#e00012";
 }
 
 function pesquisaCep(valor) {
-	let cep = valor.replace(/\D/g, '')
-	let api = 'https://viacep.com.br/ws/' + cep + '/json/'
+	let cepValue = valor.replace(/\D/g, '');
+	let api = 'https://viacep.com.br/ws/' + cepValue + '/json/';
 
-	if(cep != '') {
-		request = new XMLHttpRequest()
-		request.open('GET', api)
-		request.addEventListener("error", function(){
-			errorCep()
-		}, false);
-
-		request.onload = function(){
-			let address = JSON.parse(request.responseText)
-			if (address.erro != true) {
-				let rua = document.getElementById('rua').value = (address.logradouro)
-				let bairro = document.getElementById('bairro').value = (address.bairro)
-				let cidade = document.getElementById('cidade').value = (address.localidade)
-				let estado = document.getElementById('uf').value = (address.uf)
-				document.getElementById('cep').style.borderColor = "#66afe9";
-			} else {
-				errorCep()
-			}
-		}
+	if (cepValue === '') {
+		errorCep();
 	} else {
-		errorCep()
+		const request = new XMLHttpRequest();
+		request.open('GET', api);
+		request.onload = function () {
+			const address = JSON.parse(this.responseText);
+			console.log(address);
+
+			if (address.erro === true) {
+				errorCep();
+			} else {
+				cep.value = address.cep;
+				rua.value = address.logradouro;
+				bairro.value = address.bairro;
+				cidade.value = address.localidade;
+				estado.value = address.uf;
+
+				cep.style.borderColor = "#66afe9";
+			}
+		};
+		request.send();
 	}
-	request.send()
 }
 
 function initMap() {
