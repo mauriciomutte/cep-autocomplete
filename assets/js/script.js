@@ -24,7 +24,6 @@ function pesquisaCep(valor) {
 		request.open('GET', api);
 		request.onload = function () {
 			const address = JSON.parse(this.responseText);
-			console.log(address);
 
 			if (address.erro === true) {
 				errorCep();
